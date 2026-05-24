@@ -45,4 +45,5 @@ export interface Translation {
   ctrl_serving_badge: string;
   cancel_ticket: string;
   cancel_confirm: string;
+  your_turn: string;
 }

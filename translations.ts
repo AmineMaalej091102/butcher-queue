@@ -35,6 +35,7 @@ export const translations: Record<Lang, Translation> = {
     ctrl_serving_badge: "Serving",
     cancel_ticket: "Cancel Ticket",
     cancel_confirm: "Are you sure you want to cancel your ticket?",
+    your_turn: "It's Your Turn! Please Proceed to the Counter",
   },
   fr: {
     dir: "ltr",
@@ -70,6 +71,7 @@ export const translations: Record<Lang, Translation> = {
     ctrl_serving_badge: "En service",
     cancel_ticket: "Annuler le Ticket",
     cancel_confirm: "Êtes-vous sûr de vouloir annuler votre ticket ?",
+    your_turn: "C'est votre tour ! Veuillez vous présenter au comptoir",
   },
   ar: {
     dir: "rtl",
@@ -105,5 +107,6 @@ export const translations: Record<Lang, Translation> = {
     ctrl_serving_badge: "في الخدمة",
     cancel_ticket: "إلغاء التذكرة",
     cancel_confirm: "هل أنت متأكد من إلغاء تذكرتك؟",
+    your_turn: "حان دورك! يرجى التوجه إلى الكاونتر",
   },
 };
