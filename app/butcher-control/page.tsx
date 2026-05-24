@@ -6,12 +6,23 @@ import { translations } from "@/translations";
 import type { Customer, Lang } from '@/types/queue';
 
 export default function ButcherDashboard() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
   const [lang, setLang] = useState<Lang>("en");
   const t = translations[lang];
   const [pending, setPending] = useState<Customer[]>([]);
   const [active, setActive] = useState<Customer[]>([]);
   const [serving, setServing] = useState(0);
 
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simple verification - change '1234' to your desired password
+    if (password === "moutawer marouane") {
+      setIsAuthenticated(true);
+    } else {
+      alert("Incorrect password");
+    }
+  };
 
   const fetchInitialData = useCallback(async () => {
     const { data: p } = await supabase.from('customers').select('*').eq('status', 'pending').order('created_at');
@@ -56,6 +67,30 @@ export default function ButcherDashboard() {
     if (!window.confirm(t.ctrl_restart_confirm)) return;
     await supabase.from('queue_state').update({ current_serving: 0 }).eq('id', 1);
     await supabase.from('customers').update({ status: 'cancelled' }).in('status', ['pending', 'active']);
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="bg-noise relative min-h-screen flex items-center justify-center p-4">
+        <div className="orb orb-red" />
+        <div className="glass-card rounded-3xl p-8 w-full max-w-md animate-scale-in relative z-10">
+          <h1 className="text-2xl font-black text-white text-center mb-6 uppercase tracking-tighter">Butcher Control</h1>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter Password"
+              className="input-premium text-center text-lg"
+              autoFocus
+            />
+            <button type="submit" className="btn-primary py-4">
+              Unlock Terminal
+            </button>
+          </form>
+        </div>
+      </div>
+    );
   }
 
   return (
