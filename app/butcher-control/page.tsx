@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
 import { supabase } from '@/lib/supabase';
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { translations } from "@/translations";
@@ -13,6 +14,12 @@ export default function ButcherDashboard() {
   const [pending, setPending] = useState<Customer[]>([]);
   const [active, setActive] = useState<Customer[]>([]);
   const [serving, setServing] = useState(0);
+  const [showQR, setShowQR] = useState(false);
+  const [origin, setOrigin] = useState("");
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,7 +107,18 @@ export default function ButcherDashboard() {
 
       <div className="relative z-10 p-4 md:p-8 max-w-6xl mx-auto min-h-screen flex flex-col gap-8 animate-scale-in">
         <div className="flex justify-between items-center w-full mb-[-1rem] z-20">
-          <LanguageSwitcher current={lang} onChange={setLang} />
+          <div className="flex items-center gap-4">
+            <LanguageSwitcher current={lang} onChange={setLang} />
+            <button 
+              onClick={() => setShowQR(true)}
+              className="bg-white/5 hover:bg-white/10 text-stone-300 px-4 py-2 rounded-xl border border-white/10 flex items-center gap-2 transition-all"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+              </svg>
+              QR Code
+            </button>
+          </div>
           <button onClick={restartQueue} className="text-red-400 hover:text-red-300 hover:bg-red-500/10 text-sm font-bold flex items-center gap-2 transition-colors px-4 py-2 border border-red-500/20 rounded-xl bg-white/[0.02] shadow-xl backdrop-blur-md">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -108,6 +126,27 @@ export default function ButcherDashboard() {
             {t.ctrl_restart}
           </button>
         </div>
+
+        {/* QR Code Modal */}
+        {showQR && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in" onClick={() => setShowQR(false)}>
+            <div className="glass-card rounded-[2.5rem] p-10 flex flex-col items-center gap-6 max-w-sm w-full animate-scale-in" onClick={e => e.stopPropagation()}>
+              <div className="bg-white p-6 rounded-3xl">
+                <QRCodeSVG value={origin} size={250} level="H" includeMargin={true} />
+              </div>
+              <div className="text-center">
+                <h3 className="text-2xl font-black text-white uppercase tracking-tighter mb-2">Scan to Join</h3>
+                <p className="text-stone-400 text-sm italic">{origin}</p>
+              </div>
+              <button 
+                onClick={() => setShowQR(false)}
+                className="btn-primary py-4 px-8 mt-4"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Header / Serving Badge */}
         <div className="glass-card rounded-3xl p-8 flex flex-col md:flex-row justify-between items-center gap-6">
