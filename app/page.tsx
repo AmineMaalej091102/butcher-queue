@@ -53,7 +53,18 @@ export default function CustomerPage() {
           <StepIndicator currentStep={step} />
 
           {step === "form" && (
-            <QueueForm t={t} loading={loading} onSubmit={joinQueue
+            <QueueForm t={t} loading={loading} onSubmit={joinQueue} />
+          )}
+
+          {step === "active" && customer && (
+            <ActiveTicket 
+              t={t} 
+              customer={customer} 
+              serving={serving} 
+              onBreak={onBreak} 
+              onCancel={cancelTicket} 
+            />
+          )}
 
           {step === "cancelled" && (
             <CancelledTicket t={t} onClose={cancelTicket} />
