@@ -9,6 +9,7 @@ import { StepIndicator } from "@/components/StepIndicator";
 import { QueueForm } from "@/components/QueueForm";
 import { SmsVerification } from "@/components/SmsVerification";
 import { ActiveTicket } from "@/components/ActiveTicket";
+import { CancelledTicket } from "@/components/CancelledTicket";
 import type { Lang } from "@/types/queue";
 
 export default function CustomerPage() {
@@ -62,6 +63,10 @@ export default function CustomerPage() {
 
           {step === "active" && customer && (
             <ActiveTicket t={t} customer={customer} serving={serving} onBreak={onBreak} onCancel={cancelTicket} />
+          )}
+
+          {step === "cancelled" && (
+            <CancelledTicket t={t} onClose={cancelTicket} />
           )}
         </div>
 

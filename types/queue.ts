@@ -1,6 +1,6 @@
 export type Lang = "en" | "fr" | "ar";
 
-export type Step = "form" | "sms" | "active";
+export type Step = "form" | "sms" | "active" | "cancelled";
 
 export interface Customer {
   id: string;
@@ -54,4 +54,6 @@ export interface Translation {
   phone_error: string;
   lunch_break: string;
   on_break: string;
+  cancelled_title: string;
+  cancelled_msg: string;
 }

@@ -31,7 +31,9 @@ export function useQueue(): QueueState {
 
     if (data) {
       setCustomer(data as Customer);
-      setStep(data.status === "pending" ? "sms" : "active");
+      if (data.status === "pending") setStep("sms");
+      else if (data.status === "active") setStep("active");
+      else if (data.status === "cancelled") setStep("cancelled");
     }
   }, []);
 
@@ -69,6 +71,7 @@ export function useQueue(): QueueState {
           if (payload.new.id === myId) {
             setCustomer(payload.new as Customer);
             if (payload.new.status === "active") setStep("active");
+            if (payload.new.status === "cancelled") setStep("cancelled");
           }
         }
       )
