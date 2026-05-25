@@ -117,9 +117,12 @@ export default function ButcherDashboard() {
       <div className="orb orb-blue" />
 
       <div className="relative z-10 p-4 md:p-8 max-w-6xl mx-auto min-h-screen flex flex-col gap-8 animate-scale-in">
-        <div className="flex flex-col md:flex-row justify-between items-center w-full gap-4 z-20">
-          <div className="flex flex-wrap items-center justify-center gap-3">
+        <div className="flex flex-col md:flex-row justify-between items-center w-full gap-6 z-20">
+          <div className="flex items-center">
             <LanguageSwitcher current={lang} onChange={setLang} />
+          </div>
+          
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 w-full md:w-auto">
             <button 
               onClick={() => setShowQR(true)}
               className="bg-white/5 hover:bg-white/10 active:scale-95 text-stone-200 px-6 py-2.5 rounded-xl border border-white/10 flex items-center gap-2.5 transition-all font-bold shadow-lg backdrop-blur-sm"
@@ -142,16 +145,16 @@ export default function ButcherDashboard() {
               </svg>
               {t.lunch_break}
             </button>
+            <button 
+              onClick={restartQueue} 
+              className="group truncate flex items-center gap-2 px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-xl border border-red-500/20 transition-all font-bold active:scale-95 shadow-xl backdrop-blur-md"
+            >
+              <svg className="w-4 h-4 transition-transform group-hover:rotate-180 duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              {t.ctrl_restart}
+            </button>
           </div>
-          <button 
-            onClick={restartQueue} 
-            className="group truncate flex items-center gap-2 px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-xl border border-red-500/20 transition-all font-bold active:scale-95 shadow-xl backdrop-blur-md"
-          >
-            <svg className="w-4 h-4 transition-transform group-hover:rotate-180 duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            {t.ctrl_restart}
-          </button>
         </div>
 
         {/* QR Code Modal */}
