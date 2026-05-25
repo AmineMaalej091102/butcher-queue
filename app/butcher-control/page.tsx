@@ -235,10 +235,15 @@ export default function ButcherDashboard() {
               ) : (
                 pending.map(c => (
                   <div key={c.id} className="bg-white/[0.03] border border-white/5 p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all hover:bg-white/[0.05]">
-                    <div>
-                      <p className="font-bold text-white text-lg">{c.name}</p>
-                      <p className="text-sm text-stone-400 mt-1">{c.phone}</p>
-                      <p className="text-xs uppercase tracking-wider text-stone-500 mt-2">Code: <span className="font-mono text-red-400 font-bold tracking-widest">{c.code}</span></p>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-3">
+                        <p className="font-bold text-white text-lg">{c.name}</p>
+                        <span className="w-1.5 h-1.5 rounded-full bg-stone-700" />
+                        <p className="font-mono text-lg font-black text-amber-500 tracking-tight">{c.phone}</p>
+                      </div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-stone-500 mt-1">
+                        Verification Code: <span className="font-mono text-red-400 font-bold tracking-widest">{c.code}</span>
+                      </p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
                       <button 
@@ -279,9 +284,12 @@ export default function ButcherDashboard() {
                   const isServing = c.ticket_number === serving;
                   return (
                     <div key={c.id} className={`p-5 rounded-2xl border flex items-center justify-between transition-all ${isServing ? 'bg-red-500/10 border-red-500/30' : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.04]'}`}>
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-6">
                         <span className={`font-mono text-2xl font-black ${isServing ? 'text-red-400' : 'text-blue-400'}`}>#{c.ticket_number}</span>
-                        <span className={`font-medium ${isServing ? 'text-white' : 'text-stone-300'}`}>{c.name}</span>
+                        <div className="flex flex-col">
+                          <span className={`font-bold text-lg ${isServing ? 'text-white' : 'text-stone-300'}`}>{c.name}</span>
+                          <span className="font-mono text-sm font-bold text-stone-500 tracking-tight">{c.phone}</span>
+                        </div>
                       </div>
                       <div className="flex items-center gap-3">
                         {isServing && <span className="text-xs font-bold uppercase tracking-widest text-red-500 bg-red-500/10 px-3 py-1 rounded-full">{t.ctrl_serving_badge}</span>}
