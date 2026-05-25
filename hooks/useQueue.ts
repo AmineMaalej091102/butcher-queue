@@ -31,7 +31,7 @@ export function useQueue(): QueueState {
 
     if (data) {
       setCustomer(data as Customer);
-      if (data.status === "pending") setStep("sms");
+      if (data.status === "pending") setStep("active"); // Direct to active
       else if (data.status === "active") setStep("active");
       else if (data.status === "cancelled") setStep("cancelled");
     }
@@ -97,7 +97,7 @@ export function useQueue(): QueueState {
     if (data) {
       localStorage.setItem(STORAGE_KEY, data.id);
       setCustomer(data as Customer);
-      setStep("sms");
+      setStep("active"); // Direct to active
     } else {
       console.error(error);
     }

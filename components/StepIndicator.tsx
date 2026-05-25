@@ -13,7 +13,7 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
 
   return (
     <div className="mb-8 flex items-center justify-center gap-2">
-      {STEPS.filter(s => s !== "cancelled").map((s, i) => (
+      {STEPS.map((s, i) => (
         <div
           key={s}
           className={`step-dot ${
