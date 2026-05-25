@@ -282,8 +282,8 @@ export default function ButcherDashboard() {
                       <div className="flex items-center gap-6">
                         <span className={`font-mono text-2xl font-black ${isServing ? 'text-red-400' : 'text-blue-400'}`}>#{c.ticket_number}</span>
                         <div className="flex flex-col">
-                          <span className={`font-bold text-lg ${isServing ? 'text-white' : 'text-stone-300'}`}>{c.name}</span>
-                          <span className="font-mono text-sm font-bold text-stone-500 tracking-tight">{c.phone}</span>
+                          <span className={`font-bold text-xl ${isServing ? 'text-white' : 'text-stone-300'}`}>{c.name}</span>
+                          <span className="font-mono text-lg font-black text-amber-500 tracking-tight mt-0.5">{c.phone}</span>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
