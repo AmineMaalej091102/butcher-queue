@@ -83,6 +83,15 @@ export function useQueue(): QueueState {
   }, [fetchCustomer]);
 
   const joinQueue = useCallback(async (name: string, phone: string) => {
+    // Simple Rate Limiting check
+    const lastJoin = localStorage.getItem('last_join_time');
+    const now = Date.now();
+    if (lastJoin && now - parseInt(lastJoin) < 60000) { // 1 minute cooldown
+      const waitTime = Math.ceil((60000 - (now - parseInt(lastJoin))) / 1000);
+      alert(`يرحم والديك أستنى شويه. زيد ${waitTime} ثانية و عاود جرب.`);
+      return;
+    }
+
     setLoading(true);
     const code = Math.floor(1000 + Math.random() * 9000).toString();
 
@@ -101,6 +110,7 @@ export function useQueue(): QueueState {
 
     if (data) {
       localStorage.setItem(STORAGE_KEY, data.id);
+      localStorage.setItem('last_join_time', now.toString()); // Update rate limit
       setCustomer(data as Customer);
       setStep("active"); // Direct to active
     } else {
