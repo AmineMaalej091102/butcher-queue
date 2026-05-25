@@ -22,6 +22,13 @@ export function QueueForm({ t, loading, onSubmit }: QueueFormProps) {
 
     if (!name || !phone) return;
 
+    // Name length and character validation
+    if (name.length < 3) {
+      setError(t.dir === "rtl" ? "الإسم لازم يكون فيه 3 حروف على الأقل" : "Le nom doit comporter au moins 3 caractères");
+      nameRef.current?.focus();
+      return;
+    }
+
     // Tunisian Phone Validation: starts with 2, 4, 5, or 9 and is 8 digits long
     const phoneRegex = /^[2459]\d{7}$/;
     

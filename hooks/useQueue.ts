@@ -88,7 +88,12 @@ export function useQueue(): QueueState {
 
     const { data, error } = await supabase
       .from("customers")
-      .insert([{ name, phone, code, status: "pending" }])
+      .insert([{ 
+        name: name.substring(0, 50), // Limit name length
+        phone, 
+        code, 
+        status: "active" // Insert as active immediately
+      }])
       .select()
       .single();
 
