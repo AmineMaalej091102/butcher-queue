@@ -9,7 +9,7 @@ import type { Customer, Lang } from '@/types/queue';
 export default function ButcherDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState<Lang>("ar");
   const t = translations[lang];
   const [pending, setPending] = useState<Customer[]>([]);
   const [active, setActive] = useState<Customer[]>([]);

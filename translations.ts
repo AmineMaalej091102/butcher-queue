@@ -99,7 +99,7 @@ export const translations: Record<Lang, Translation> = {
   },
   ar: {
     dir: "rtl",
-    title: "صف محمد مروان",
+    title: "موقع محمد مروان",
     subtitle: "شد الصف بالتلفون",
     name: "الاسم و اللقب",
     phone: "رقم التلفون",

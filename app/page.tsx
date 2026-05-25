@@ -13,7 +13,7 @@ import { CancelledTicket } from "@/components/CancelledTicket";
 import type { Lang } from "@/types/queue";
 
 export default function CustomerPage() {
-  const [lang, setLang] = useState<Lang>("en");
+  const [lang, setLang] = useState<Lang>("ar");
   const { customer, serving, onBreak, step, loading, joinQueue, cancelTicket } = useQueue();
   const t = translations[lang];
 
