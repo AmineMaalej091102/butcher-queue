@@ -39,6 +39,17 @@ export default function CustomerPage() {
             <p className="mt-1 text-sm text-stone-500">{t.subtitle}</p>
           </div>
 
+          {/* Eid Mubarak Banner */}
+          <div className="mb-6 overflow-hidden rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-500/20 to-amber-500/10 p-[1px]">
+            <div className="flex items-center justify-center gap-2 bg-stone-950/40 py-3 px-4 backdrop-blur-sm">
+              <span className="text-xl">🌙</span>
+              <span className="bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-lg font-black tracking-wider text-transparent uppercase">
+                {t.eid_mubarak}
+              </span>
+              <span className="text-xl">✨</span>
+            </div>
+          </div>
+
           <StepIndicator currentStep={step} />
 
           {step === "form" && (

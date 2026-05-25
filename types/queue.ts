@@ -48,4 +48,5 @@ export interface Translation {
   your_turn: string;
   thank_you: string;
   served_msg: string;
+  eid_mubarak: string;
 }

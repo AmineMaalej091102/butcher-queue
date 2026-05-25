@@ -38,6 +38,7 @@ export const translations: Record<Lang, Translation> = {
     your_turn: "It's Your Turn! Please Proceed to the Counter",
     thank_you: "Thank You!",
     served_msg: "We hope you enjoyed our service. See you next time!",
+    eid_mubarak: "Eid Mubarak!",
   },
   fr: {
     dir: "ltr",
@@ -76,6 +77,7 @@ export const translations: Record<Lang, Translation> = {
     your_turn: "C'est votre tour ! Veuillez vous présenter au comptoir",
     thank_you: "Merci !",
     served_msg: "Nous espérons que vous avez apprécié notre service. À bientôt !",
+    eid_mubarak: "Eid Mubarak!",
   },
   ar: {
     dir: "rtl",
@@ -114,5 +116,6 @@ export const translations: Record<Lang, Translation> = {
     your_turn: "حان دورك! يرجى التوجه إلى الكاونتر",
     thank_you: "شكراً لك!",
     served_msg: "نأمل أن تكون قد استمتعت بخدمتنا. نراك قريباً!",
+    eid_mubarak: "عيد مبارك!",
   },
 };
