@@ -46,4 +46,6 @@ export interface Translation {
   cancel_ticket: string;
   cancel_confirm: string;
   your_turn: string;
+  thank_you: string;
+  served_msg: string;
 }

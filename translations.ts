@@ -36,6 +36,8 @@ export const translations: Record<Lang, Translation> = {
     cancel_ticket: "Cancel Ticket",
     cancel_confirm: "Are you sure you want to cancel your ticket?",
     your_turn: "It's Your Turn! Please Proceed to the Counter",
+    thank_you: "Thank You!",
+    served_msg: "We hope you enjoyed our service. See you next time!",
   },
   fr: {
     dir: "ltr",
@@ -72,6 +74,8 @@ export const translations: Record<Lang, Translation> = {
     cancel_ticket: "Annuler le Ticket",
     cancel_confirm: "Êtes-vous sûr de vouloir annuler votre ticket ?",
     your_turn: "C'est votre tour ! Veuillez vous présenter au comptoir",
+    thank_you: "Merci !",
+    served_msg: "Nous espérons que vous avez apprécié notre service. À bientôt !",
   },
   ar: {
     dir: "rtl",
@@ -108,5 +112,7 @@ export const translations: Record<Lang, Translation> = {
     cancel_ticket: "إلغاء التذكرة",
     cancel_confirm: "هل أنت متأكد من إلغاء تذكرتك؟",
     your_turn: "حان دورك! يرجى التوجه إلى الكاونتر",
+    thank_you: "شكراً لك!",
+    served_msg: "نأمل أن تكون قد استمتعت بخدمتنا. نراك قريباً!",
   },
 };
