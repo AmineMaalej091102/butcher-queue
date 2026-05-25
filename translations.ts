@@ -47,7 +47,7 @@ export const translations: Record<Lang, Translation> = {
     cancelled_title: "Ticket Cancelled",
     cancelled_msg: "We are sorry, but your ticket has been removed by the butcher. Please contact our staff if you have any questions.",
     remind_sms: "Remind Customer",
-    remind_sms_body: "Reminder: You are next in queue! Please come to the butcher counter. \n\nRappel : C'est presque votre tour ! Veuillez vous présenter au comptoir. \n\nتنبيه: لقد اقترب دورك! يرجى التوجه إلى كاونتر الجزار الآن.",
+    remind_sms_body: "عسلامة! دورك قرب، جيب علوشك و ايجا للكنتوار. \n\nReminder: You are next! Please come to the counter. \n\nRappel : C'est presque votre tour ! Veuillez vous présenter au comptoir.",
   },
   fr: {
     dir: "ltr",
@@ -95,7 +95,7 @@ export const translations: Record<Lang, Translation> = {
     cancelled_title: "Ticket Annulé",
     cancelled_msg: "Nous sommes désolés, mais votre ticket a été retiré par le boucher. Veuillez contacter notre personnel si vous avez des questions.",
     remind_sms: "Rappeler le client",
-    remind_sms_body: "Reminder: You are next in queue! Please come to the butcher counter. \n\nRappel : C'est presque votre tour ! Veuillez vous présenter au comptoir. \n\nتنبيه: لقد اقترب دورك! يرجى التوجه إلى كاونتر الجزار الآن.",
+    remind_sms_body: "عسلامة! دورك قرب، جيب علوشك و ايجا للكنتوار. \n\nReminder: You are next! Please come to the counter. \n\nRappel : C'est presque votre tour ! Veuillez vous présenter au comptoir.",
   },
   ar: {
     dir: "rtl",
@@ -143,6 +143,6 @@ export const translations: Record<Lang, Translation> = {
     cancelled_title: "تم إلغاء التذكرة",
     cancelled_msg: "نعتذر منك، لقد تم إلغاء تذكرتك من قبل الجزار. يرجى مراجعة موظفينا إذا كان لديك أي استفسار.",
     remind_sms: "تذكير العميل",
-    remind_sms_body: "Reminder: You are next in queue! Please come to the butcher counter. \n\nRappel : C'est presque votre tour ! Veuillez vous présenter au comptoir. \n\nتنبيه: لقد اقترب دورك! يرجى التوجه إلى كاونتر الجزار الآن.",
+    remind_sms_body: "عسلامة! دورك قرب، جيب علوشك و ايجا للكنتوار. \n\nReminder: You are next! Please come to the counter. \n\nRappel : C'est presque votre tour ! Veuillez vous présenter au comptoir.",
   },
 };
