@@ -106,21 +106,24 @@ export default function ButcherDashboard() {
       <div className="orb orb-blue" />
 
       <div className="relative z-10 p-4 md:p-8 max-w-6xl mx-auto min-h-screen flex flex-col gap-8 animate-scale-in">
-        <div className="flex justify-between items-center w-full mb-[-1rem] z-20">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center w-full gap-4 z-20">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <LanguageSwitcher current={lang} onChange={setLang} />
             <button 
               onClick={() => setShowQR(true)}
-              className="bg-white/5 hover:bg-white/10 text-stone-300 px-4 py-2 rounded-xl border border-white/10 flex items-center gap-2 transition-all"
+              className="bg-white/5 hover:bg-white/10 active:scale-95 text-stone-200 px-6 py-2.5 rounded-xl border border-white/10 flex items-center gap-2.5 transition-all font-bold shadow-lg backdrop-blur-sm"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+              <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
               </svg>
-              QR Code
+              QR CODE
             </button>
           </div>
-          <button onClick={restartQueue} className="text-red-400 hover:text-red-300 hover:bg-red-500/10 text-sm font-bold flex items-center gap-2 transition-colors px-4 py-2 border border-red-500/20 rounded-xl bg-white/[0.02] shadow-xl backdrop-blur-md">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <button 
+            onClick={restartQueue} 
+            className="group truncate flex items-center gap-2 px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-xl border border-red-500/20 transition-all font-bold active:scale-95 shadow-xl backdrop-blur-md"
+          >
+            <svg className="w-4 h-4 transition-transform group-hover:rotate-180 duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
             {t.ctrl_restart}
@@ -149,24 +152,40 @@ export default function ButcherDashboard() {
         )}
 
         {/* Header / Serving Badge */}
-        <div className="glass-card rounded-3xl p-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-center md:text-left">
-            <h1 className="text-sm font-bold uppercase tracking-widest text-red-400/80 mb-2">{t.ctrl_serving}</h1>
-            <p className="animate-count-pulse font-mono text-7xl md:text-8xl font-black text-red-500">#{serving}</p>
+        <div className="glass-card rounded-[2.5rem] p-10 flex flex-col lg:flex-row justify-between items-center gap-10 shadow-2xl relative overflow-hidden">
+          {/* Decorative Shine */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
+          
+          <div className="text-center lg:text-left relative">
+            <h1 className="text-xs font-black uppercase tracking-[0.3em] text-red-500/80 mb-3">{t.ctrl_serving}</h1>
+            <div className="flex items-baseline justify-center lg:justify-start gap-2">
+              <span className="text-4xl font-bold text-red-500/40">#</span>
+              <p className="animate-count-pulse font-mono text-8xl md:text-9xl font-black text-red-500 tracking-tighter shadow-red-500/20 drop-shadow-2xl">
+                {serving}
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+
+          <div className="flex flex-col sm:flex-row gap-5 w-full lg:w-auto relative z-10">
             <button 
               onClick={previousCustomer} 
               disabled={serving <= 0}
-              className="bg-white/5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed border border-white/10 text-white w-full sm:w-auto text-lg py-6 px-8 rounded-2xl shadow-xl transition-all"
+              className="group flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 disabled:opacity-20 disabled:cursor-not-allowed border border-white/10 text-stone-300 w-full lg:w-auto text-lg font-bold py-6 px-8 rounded-3xl shadow-xl transition-all active:scale-95"
             >
+              <svg className="w-6 h-6 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
               {t.ctrl_prev}
             </button>
+            
             <button 
               onClick={nextCustomer} 
-              className="btn-primary w-full sm:w-auto text-xl py-6 px-10 shadow-xl"
+              className="group flex items-center justify-center gap-4 bg-gradient-to-br from-red-500 to-red-600 hover:from-red-400 hover:to-red-500 text-white w-full lg:min-w-[300px] text-2xl font-black py-7 px-12 rounded-3xl shadow-[0_20px_50px_rgba(239,68,68,0.3)] transition-all active:scale-95 hover:scale-[1.02]"
             >
               {t.ctrl_next}
+              <svg className="w-8 h-8 transition-transform group-hover:translate-x-2 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
             </button>
           </div>
         </div>
@@ -194,9 +213,19 @@ export default function ButcherDashboard() {
                       <p className="text-sm text-stone-400 mt-1">{c.phone}</p>
                       <p className="text-xs uppercase tracking-wider text-stone-500 mt-2">Code: <span className="font-mono text-red-400 font-bold tracking-widest">{c.code}</span></p>
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                      <button onClick={() => removeCustomer(c.id)} className="bg-red-500/10 hover:bg-red-500/20 text-red-500 font-bold w-full sm:w-auto py-3 px-4 text-sm rounded-xl transition">{t.ctrl_remove}</button>
-                      <button onClick={() => approve(c)} className="btn-success w-full sm:w-auto py-3 px-6 text-sm">{t.ctrl_approve}</button>
+                    <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
+                      <button 
+                        onClick={() => removeCustomer(c.id)} 
+                        className="bg-red-500/5 hover:bg-red-500/15 text-red-500/70 hover:text-red-500 font-bold w-full sm:w-auto py-3.5 px-5 text-xs uppercase tracking-widest rounded-xl transition-all border border-red-500/10 hover:border-red-500/30 active:scale-95"
+                      >
+                        {t.ctrl_remove}
+                      </button>
+                      <button 
+                        onClick={() => approve(c)} 
+                        className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white font-black w-full sm:w-auto py-3.5 px-8 text-xs uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-green-900/20 active:scale-95 border border-white/10"
+                      >
+                        {t.ctrl_approve}
+                      </button>
                     </div>
                   </div>
                 ))
