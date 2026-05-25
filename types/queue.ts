@@ -56,4 +56,6 @@ export interface Translation {
   on_break: string;
   cancelled_title: string;
   cancelled_msg: string;
+  remind_sms: string;
+  remind_sms_body: string;
 }
