@@ -13,7 +13,7 @@ import type { Lang } from "@/types/queue";
 
 export default function CustomerPage() {
   const [lang, setLang] = useState<Lang>("en");
-  const { customer, serving, step, loading, joinQueue, cancelTicket } = useQueue();
+  const { customer, serving, onBreak, step, loading, joinQueue, cancelTicket } = useQueue();
   const t = translations[lang];
 
   return (
@@ -61,7 +61,7 @@ export default function CustomerPage() {
           )}
 
           {step === "active" && customer && (
-            <ActiveTicket t={t} customer={customer} serving={serving} onCancel={cancelTicket} />
+            <ActiveTicket t={t} customer={customer} serving={serving} onBreak={onBreak} onCancel={cancelTicket} />
           )}
         </div>
 

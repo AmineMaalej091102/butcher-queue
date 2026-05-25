@@ -52,4 +52,6 @@ export interface Translation {
   estimated_wait: string;
   minutes: string;
   phone_error: string;
+  lunch_break: string;
+  on_break: string;
 }

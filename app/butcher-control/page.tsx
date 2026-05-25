@@ -14,6 +14,7 @@ export default function ButcherDashboard() {
   const [pending, setPending] = useState<Customer[]>([]);
   const [active, setActive] = useState<Customer[]>([]);
   const [serving, setServing] = useState(0);
+  const [onBreak, setOnBreak] = useState(false);
   const [showQR, setShowQR] = useState(false);
   const [origin, setOrigin] = useState("");
 
@@ -38,6 +39,7 @@ export default function ButcherDashboard() {
     setPending(p as Customer[] || []);
     setActive(a as Customer[] || []);
     setServing(s?.current_serving || 0);
+    setOnBreak(s?.on_break || false);
   }, []);
 
   useEffect(() => {
@@ -45,10 +47,19 @@ export default function ButcherDashboard() {
     fetchInitialData();
     const sub = supabase.channel('butcher_updates')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'customers' }, () => fetchInitialData())
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'queue_state' }, (payload) => setServing(payload.new.current_serving))
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'queue_state' }, (payload) => {
+        setServing(payload.new.current_serving);
+        setOnBreak(payload.new.on_break);
+      })
       .subscribe();
     return () => { supabase.removeChannel(sub); };
   }, [fetchInitialData]);
+
+  async function toggleBreak() {
+    const nextState = !onBreak;
+    await supabase.from('queue_state').update({ on_break: nextState }).eq('id', 1);
+    setOnBreak(nextState);
+  }
 
   async function approve(customer: Customer) {
     const nextTicket = active.length > 0 ? Math.max(...active.map(c => c.ticket_number)) + 1 : serving + 1;
@@ -117,6 +128,19 @@ export default function ButcherDashboard() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
               </svg>
               QR CODE
+            </button>
+            <button 
+              onClick={toggleBreak}
+              className={`px-6 py-2.5 rounded-xl border flex items-center gap-2.5 transition-all font-bold shadow-lg backdrop-blur-sm active:scale-95 ${
+                onBreak 
+                ? 'bg-amber-500/20 border-amber-500/40 text-amber-500' 
+                : 'bg-white/5 border-white/10 text-stone-200 hover:bg-white/10'
+              }`}
+            >
+              <svg className={`w-5 h-5 ${onBreak ? 'animate-pulse' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {t.lunch_break}
             </button>
           </div>
           <button 

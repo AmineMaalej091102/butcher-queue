@@ -5,13 +5,15 @@ interface ActiveTicketProps {
   t: Translation;
   customer: Customer;
   serving: number;
+  onBreak: boolean;
   onCancel: () => void;
 }
 
-export function ActiveTicket({ t, customer, serving, onCancel }: ActiveTicketProps) {
+export function ActiveTicket({ t, customer, serving, onBreak, onCancel }: ActiveTicketProps) {
   const isYourTurn = customer.ticket_number === serving;
   const isServed = serving > customer.ticket_number;
   const ahead = customer.ticket_number - serving;
+  const estimatedTime = (ahead * 20) + (onBreak ? 30 : 0);
 
   useEffect(() => {
     if (isYourTurn && "vibrate" in navigator) {
@@ -128,10 +130,19 @@ export function ActiveTicket({ t, customer, serving, onCancel }: ActiveTicketPro
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <p className="text-3xl font-black text-white tracking-tight">
-                      {ahead * 20} <span className="text-lg font-bold text-indigo-300/70">{t.minutes}</span>
+                      {estimatedTime} <span className="text-lg font-bold text-indigo-300/70">{t.minutes}</span>
                     </p>
                   </div>
                 </div>
+
+                {onBreak && (
+                  <div className="animate-pulse bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 flex items-center gap-3">
+                    <span className="text-xl">🥪</span>
+                    <p className="text-sm font-bold text-amber-500 text-left leading-tight">
+                      {t.on_break} (+30 {t.minutes})
+                    </p>
+                  </div>
+                )}
               </div>
             ) : (
               <p className="text-3xl font-black text-amber-500 animate-pulse uppercase tracking-wider">

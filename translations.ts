@@ -42,6 +42,8 @@ export const translations: Record<Lang, Translation> = {
     estimated_wait: "Estimated Waiting Time",
     minutes: "minutes",
     phone_error: "Phone number must be 8 digits and start with 2, 4, 5, or 9.",
+    lunch_break: "Lunch Break",
+    on_break: "The butcher is currently on a lunch break",
   },
   fr: {
     dir: "ltr",
@@ -84,6 +86,8 @@ export const translations: Record<Lang, Translation> = {
     estimated_wait: "Temps d'attente estimé",
     minutes: "minutes",
     phone_error: "Le numéro doit comporter 8 chiffres et commencer par 2, 4, 5 ou 9.",
+    lunch_break: "Pause Déjeuner",
+    on_break: "Le boucher est actuellement en pause déjeuner",
   },
   ar: {
     dir: "rtl",
@@ -126,5 +130,7 @@ export const translations: Record<Lang, Translation> = {
     estimated_wait: "وقت الانتظار المتوقع",
     minutes: "دقيقة",
     phone_error: "يجب أن يتكون رقم الهاتف من 8 أرقام ويبدأ بـ 2 أو 4 أو 5 أو 9.",
+    lunch_break: "استراحة غداء",
+    on_break: "الجزار حالياً في استراحة غداء",
   },
 };

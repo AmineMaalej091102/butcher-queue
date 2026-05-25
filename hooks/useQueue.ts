@@ -8,6 +8,7 @@ import type { Customer, Step } from "@/types/queue";
 interface QueueState {
   customer: Customer | null;
   serving: number;
+  onBreak: boolean;
   step: Step;
   loading: boolean;
   joinQueue: (name: string, phone: string) => Promise<void>;
@@ -18,6 +19,7 @@ export function useQueue(): QueueState {
   const [step, setStep] = useState<Step>("form");
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [serving, setServing] = useState(0);
+  const [onBreak, setOnBreak] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const fetchCustomer = useCallback(async (id: string) => {
@@ -43,7 +45,10 @@ export function useQueue(): QueueState {
       .from("queue_state")
       .select("*")
       .single()
-      .then(({ data }) => setServing(data?.current_serving || 0));
+      .then(({ data }) => {
+        setServing(data?.current_serving || 0);
+        setOnBreak(data?.on_break || false);
+      });
 
     // Subscribe to real-time updates
     const channel = supabase
@@ -51,7 +56,10 @@ export function useQueue(): QueueState {
       .on(
         "postgres_changes",
         { event: "UPDATE", schema: "public", table: "queue_state" },
-        (payload) => setServing(payload.new.current_serving)
+        (payload) => {
+          setServing(payload.new.current_serving);
+          setOnBreak(payload.new.on_break);
+        }
       )
       .on(
         "postgres_changes",
@@ -102,5 +110,5 @@ export function useQueue(): QueueState {
     setLoading(false);
   }, [customer]);
 
-  return { customer, serving, step, loading, joinQueue, cancelTicket };
+  return { customer, serving, onBreak, step, loading, joinQueue, cancelTicket };
 }
