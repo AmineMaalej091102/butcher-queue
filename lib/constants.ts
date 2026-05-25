@@ -5,9 +5,10 @@ export const STEP_INDEX: Record<Step, number> = {
   form: 0,
   sms: 1,
   active: 2,
+  cancelled: 2, // Map to active for indicator logic or handle separately
 };
 
-export const STEPS: Step[] = ["form", "sms", "active"];
+export const STEPS: Step[] = ["form", "sms", "active", "cancelled"];
 
 export const LANGS = ["en", "fr", "ar"] as const;
 

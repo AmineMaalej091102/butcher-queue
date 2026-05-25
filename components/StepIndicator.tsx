@@ -6,11 +6,14 @@ interface StepIndicatorProps {
 }
 
 export function StepIndicator({ currentStep }: StepIndicatorProps) {
+  // Hide indicator if cancelled
+  if (currentStep === "cancelled") return null;
+
   const currentIndex = STEP_INDEX[currentStep];
 
   return (
     <div className="mb-8 flex items-center justify-center gap-2">
-      {STEPS.map((s, i) => (
+      {STEPS.filter(s => s !== "cancelled").map((s, i) => (
         <div
           key={s}
           className={`step-dot ${
