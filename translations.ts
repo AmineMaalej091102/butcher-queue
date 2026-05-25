@@ -41,6 +41,7 @@ export const translations: Record<Lang, Translation> = {
     eid_mubarak: "Eid Mubarak!",
     estimated_wait: "Estimated Waiting Time",
     minutes: "minutes",
+    phone_error: "Phone number must be 8 digits and start with 2, 4, 5, or 9.",
   },
   fr: {
     dir: "ltr",
@@ -82,6 +83,7 @@ export const translations: Record<Lang, Translation> = {
     eid_mubarak: "Eid Mubarak!",
     estimated_wait: "Temps d'attente estimé",
     minutes: "minutes",
+    phone_error: "Le numéro doit comporter 8 chiffres et commencer par 2, 4, 5 ou 9.",
   },
   ar: {
     dir: "rtl",
@@ -119,7 +121,10 @@ export const translations: Record<Lang, Translation> = {
     cancel_confirm: "هل أنت متأكد من إلغاء تذكرتك؟",
     your_turn: "حان دورك! يرجى التوجه إلى الكاونتر",
     thank_you: "شكراً لك!",
-    served_msg: "نأمل أن تكون قد استمتعت بخدمتنا. نراك قريباً!",
-    eid_mubarak: "عيد مبارك!",    estimated_wait: "وقت الانتظار المتوقع",
-    minutes: "دقيقة",  },
+    served_msg: "نتمنى أن تكون قد استمتعت بخدمتنا. نراك قريباً!",
+    eid_mubarak: "عيد مبارك!",
+    estimated_wait: "وقت الانتظار المتوقع",
+    minutes: "دقيقة",
+    phone_error: "يجب أن يتكون رقم الهاتف من 8 أرقام ويبدأ بـ 2 أو 4 أو 5 أو 9.",
+  },
 };

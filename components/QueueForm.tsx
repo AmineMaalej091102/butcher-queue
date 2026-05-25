@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { SpinnerIcon } from "@/components/icons";
 import type { Translation } from "@/types/queue";
 
@@ -13,11 +13,25 @@ interface QueueFormProps {
 export function QueueForm({ t, loading, onSubmit }: QueueFormProps) {
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<string | null>(null);
 
   function handleClick() {
+    setError(null);
     const name = nameRef.current?.value?.trim();
     const phone = phoneRef.current?.value?.trim();
-    if (name && phone) onSubmit(name, phone);
+
+    if (!name || !phone) return;
+
+    // Tunisian Phone Validation: starts with 2, 4, 5, or 9 and is 8 digits long
+    const phoneRegex = /^[2459]\d{7}$/;
+    
+    if (!phoneRegex.test(phone)) {
+      setError(t.phone_error);
+      phoneRef.current?.focus();
+      return;
+    }
+
+    onSubmit(name, phone);
   }
 
   return (
@@ -33,6 +47,7 @@ export function QueueForm({ t, loading, onSubmit }: QueueFormProps) {
           placeholder={t.name}
           className="input-premium"
           autoComplete="name"
+          required
         />
       </div>
       <div>
@@ -44,17 +59,26 @@ export function QueueForm({ t, loading, onSubmit }: QueueFormProps) {
           id="customer-phone"
           type="tel"
           placeholder={t.phone}
-          className="input-premium"
+          className={`input-premium ${error ? 'border-red-500 focus:ring-red-500/20' : ''}`}
           autoComplete="tel"
           dir="ltr"
+          maxLength={8}
+          inputMode="numeric"
+          onChange={() => error && setError(null)}
+          required
         />
+        {error && (
+          <p className="mt-2 text-xs font-bold text-red-500 animate-shake">
+            {error}
+          </p>
+        )}
       </div>
       <div className="pt-2">
         <button
           type="button"
           onClick={handleClick}
           disabled={loading}
-          className="btn-primary"
+          className="btn-primary w-full"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
