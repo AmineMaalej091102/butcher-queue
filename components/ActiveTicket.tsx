@@ -107,18 +107,38 @@ export function ActiveTicket({ t, customer, serving, onCancel }: ActiveTicketPro
         <p className="text-sm font-semibold text-stone-400">{t.wait_msg}</p>
       </div>
 
-      {/* Position indicator */}
+      {/* Position & Time Indicator */}
       {customer.ticket_number && serving > 0 && (
-        <div className="text-center p-4">
-          {ahead > 0 ? (
-            <p className="text-xl font-medium text-stone-400">
-              <span className="text-blue-400 font-bold">{ahead}</span> {t.ahead_of_you}
-            </p>
-          ) : (
-            <p className="text-3xl font-black text-amber-500 animate-pulse uppercase tracking-wider">
-              {t.youre_next}
-            </p>
-          )}
+        <div className="space-y-4">
+          <div className="text-center">
+            {ahead > 0 ? (
+              <div className="space-y-4">
+                <p className="text-xl font-medium text-stone-400">
+                  <span className="text-blue-400 font-bold">{ahead}</span> {t.ahead_of_you}
+                </p>
+                
+                {/* Estimated Time Card */}
+                <div className="bg-gradient-to-br from-indigo-500/10 to-purple-600/10 border border-indigo-500/20 rounded-2xl p-6 shadow-xl backdrop-blur-md relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-400 mb-1">
+                    {t.estimated_wait}
+                  </p>
+                  <div className="flex items-center justify-center gap-2">
+                    <svg className="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p className="text-3xl font-black text-white tracking-tight">
+                      {ahead * 20} <span className="text-lg font-bold text-indigo-300/70">{t.minutes}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p className="text-3xl font-black text-amber-500 animate-pulse uppercase tracking-wider">
+                {t.youre_next}
+              </p>
+            )}
+          </div>
         </div>
       )}
 

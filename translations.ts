@@ -39,6 +39,8 @@ export const translations: Record<Lang, Translation> = {
     thank_you: "Thank You!",
     served_msg: "We hope you enjoyed our service. See you next time!",
     eid_mubarak: "Eid Mubarak!",
+    estimated_wait: "Estimated Waiting Time",
+    minutes: "minutes",
   },
   fr: {
     dir: "ltr",
@@ -78,6 +80,8 @@ export const translations: Record<Lang, Translation> = {
     thank_you: "Merci !",
     served_msg: "Nous espérons que vous avez apprécié notre service. À bientôt !",
     eid_mubarak: "Eid Mubarak!",
+    estimated_wait: "Temps d'attente estimé",
+    minutes: "minutes",
   },
   ar: {
     dir: "rtl",
@@ -116,6 +120,6 @@ export const translations: Record<Lang, Translation> = {
     your_turn: "حان دورك! يرجى التوجه إلى الكاونتر",
     thank_you: "شكراً لك!",
     served_msg: "نأمل أن تكون قد استمتعت بخدمتنا. نراك قريباً!",
-    eid_mubarak: "عيد مبارك!",
-  },
+    eid_mubarak: "عيد مبارك!",    estimated_wait: "وقت الانتظار المتوقع",
+    minutes: "دقيقة",  },
 };

@@ -49,4 +49,6 @@ export interface Translation {
   thank_you: string;
   served_msg: string;
   eid_mubarak: string;
+  estimated_wait: string;
+  minutes: string;
 }
