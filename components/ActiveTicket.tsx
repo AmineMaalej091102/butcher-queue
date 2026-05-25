@@ -110,7 +110,7 @@ export function ActiveTicket({ t, customer, serving, onBreak, onCancel }: Active
       </div>
 
       {/* Position & Time Indicator */}
-      {customer.ticket_number && serving > 0 && (
+      {customer.ticket_number > 0 && (
         <div className="space-y-4">
           <div className="text-center">
             {ahead > 0 ? (
