@@ -95,7 +95,13 @@ export function ActiveTicket({ t, customer, serving, onBreak, onCancel }: Active
       </div>
 
       {/* Your Number */}
-      <div className="your-number-badge text-center">
+      <div className="your-number-badge relative text-center">
+        <div className="sparkle-container">
+          <span className="animate-sparkle block text-2xl">✨</span>
+        </div>
+        <div className="absolute -top-4 -left-4">
+          <span className="animate-float block text-3xl">🥩</span>
+        </div>
         <p className="mb-2 text-xs font-bold uppercase tracking-widest text-blue-400/60">
           {t.your_number}
         </p>
