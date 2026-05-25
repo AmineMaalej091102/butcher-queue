@@ -272,57 +272,104 @@ export default function ButcherDashboard() {
               <h2 className="text-xl font-bold text-white">{t.ctrl_active} <span className="text-stone-500 text-base font-normal">({active.length})</span></h2>
             </div>
 
-            <div className="flex flex-col gap-3 overflow-y-auto max-h-[60vh] pr-2">
+            <div className="flex flex-col gap-3 overflow-y-auto max-h-[55vh] pr-2">
               {active.length === 0 ? (
                 <p className="text-stone-500 text-center py-8">{t.ctrl_empty}</p>
               ) : (
-                active.map(c => {
-                  const isServing = c.ticket_number === serving;
-                  const isNext = c.ticket_number === serving + 1;
-                  
-                  return (
-                    <div key={c.id} className={`p-5 rounded-2xl border flex items-center justify-between transition-all ${isServing ? 'bg-red-500/10 border-red-500/30' : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.04]'}`}>
-                      <div className="flex items-center gap-6">
-                        <span className={`font-mono text-2xl font-black ${isServing ? 'text-red-400' : 'text-blue-400'}`}>#{c.ticket_number}</span>
-                        <div className="flex flex-col">
-                          <span className={`font-bold text-xl ${isServing ? 'text-white' : 'text-stone-300'}`}>{c.name}</span>
-                          <span className="font-mono text-lg font-black text-amber-500 tracking-tight mt-0.5">{c.phone}</span>
-                          
-                          {isNext && (
-                            <div className="mt-3">
-                              <a 
-                                href={`sms:${c.phone}${/iPad|iPhone|iPod/.test(navigator.userAgent) ? '&' : '?'}body=${encodeURIComponent(t.remind_sms_body)}`}
-                                className="group inline-flex items-center gap-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 text-[9px] font-black uppercase tracking-[0.15em] px-4 py-2.5 rounded-xl border border-amber-500/20 transition-all active:scale-95 shadow-lg shadow-amber-900/10"
-                              >
-                                <svg className="w-3.5 h-3.5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                                </svg>
-                                {t.remind_sms}
-                              </a>
+                <>
+                  {/* Next Up Highlight */}
+                  {active.some(c => c.ticket_number === serving + 1) && (
+                    <div className="mb-2">
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-500/50 mb-2 ml-1">Next in Line</p>
+                      {active.filter(c => c.ticket_number === serving + 1).map(c => (
+                        <div key={c.id} className="bg-amber-500/5 border border-amber-500/20 p-6 rounded-[2rem] flex flex-col gap-4 shadow-xl shadow-amber-900/5">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-5">
+                              <span className="font-mono text-4xl font-black text-amber-500">#{c.ticket_number}</span>
+                              <div className="flex flex-col">
+                                <span className="font-bold text-xl text-white">{c.name}</span>
+                                <span className="font-mono text-lg font-black text-stone-400 tracking-tight">{c.phone}</span>
+                              </div>
                             </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-2.5">
-                        <div className="flex items-center gap-2">
-                          {isServing && <span className="text-[10px] font-black uppercase tracking-[0.2em] text-red-500 bg-red-500/10 px-4 py-1.5 rounded-full border border-red-500/20">{t.ctrl_serving_badge}</span>}
+                            <button 
+                              onClick={() => removeCustomer(c.id)} 
+                              className="text-stone-600 hover:text-red-500 transition-all p-2 hover:bg-red-500/5 rounded-xl active:scale-90"
+                            >
+                              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
                           
-                          <button 
-                            onClick={() => removeCustomer(c.id)} 
-                            className="text-stone-600 hover:text-red-500 transition-all p-1.5 hover:bg-red-500/5 rounded-lg active:scale-90" 
-                            title={t.ctrl_remove}
+                          <a 
+                            href={`sms:${c.phone}${/iPad|iPhone|iPod/.test(navigator.userAgent) ? '&' : '?'}body=${encodeURIComponent(t.remind_sms_body)}`}
+                            className="btn-success py-4 text-xs font-black uppercase tracking-[0.2em] bg-amber-500 text-black hover:bg-amber-400 shadow-lg shadow-amber-500/20"
                           >
-                            <svg className="w-5 h-5 font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                          </button>
+                            <span className="flex items-center justify-center gap-2">
+                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                              </svg>
+                              {t.remind_sms}
+                            </span>
+                          </a>
+                        </div>
+                      ))}
+                      <div className="h-px bg-white/5 my-6 mx-4" />
+                    </div>
+                  )}
+
+                  {/* Rest of Active List */}
+                  {active.filter(c => c.ticket_number !== serving + 1).map(c => {
+                    const isServing = c.ticket_number === serving;
+                    
+                    return (
+                      <div key={c.id} className={`p-5 rounded-2xl border flex items-center justify-between transition-all ${isServing ? 'bg-red-500/10 border-red-500/30' : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.04]'}`}>
+                        <div className="flex items-center gap-6">
+                          <span className={`font-mono text-2xl font-black ${isServing ? 'text-red-400' : 'text-blue-400'}`}>#{c.ticket_number}</span>
+                          <div className="flex flex-col">
+                            <span className={`font-bold text-xl ${isServing ? 'text-white' : 'text-stone-300'}`}>{c.name}</span>
+                            <span className="font-mono text-lg font-black text-amber-500 tracking-tight mt-0.5">{c.phone}</span>
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-end gap-2.5">
+                          <div className="flex items-center gap-2">
+                            {isServing && <span className="text-[10px] font-black uppercase tracking-[0.2em] text-red-500 bg-red-500/10 px-4 py-1.5 rounded-full border border-red-500/20">{t.ctrl_serving_badge}</span>}
+                            
+                            <button 
+                              onClick={() => removeCustomer(c.id)} 
+                              className="text-stone-600 hover:text-red-500 transition-all p-1.5 hover:bg-red-500/5 rounded-lg active:scale-90" 
+                              title={t.ctrl_remove}
+                            >
+                              <svg className="w-5 h-5 font-bold" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })
+                    );
+                  })}
+                </>
               )}
             </div>
+
+            {/* Polish below active queue: Queue Summary */}
+            {active.length > 0 && (
+              <div className="mt-auto pt-6 border-t border-white/5 grid grid-cols-2 gap-4">
+                <div className="bg-white/[0.02] p-4 rounded-2xl border border-white/5">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-stone-500 mb-1">Waiting</p>
+                  <p className="text-2xl font-black text-blue-400">
+                    {active.filter(c => c.ticket_number > serving).length} <span className="text-xs text-stone-600 font-bold">Peop.</span>
+                  </p>
+                </div>
+                <div className="bg-white/[0.02] p-4 rounded-2xl border border-white/5">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-stone-500 mb-1">Est. Finish</p>
+                  <p className="text-2xl font-black text-amber-500">
+                    {Math.max(0, active.filter(c => c.ticket_number > serving).length * 20)} <span className="text-xs text-stone-600 font-bold">Min.</span>
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
