@@ -235,15 +235,10 @@ export default function ButcherDashboard() {
               ) : (
                 pending.map(c => (
                   <div key={c.id} className="bg-white/[0.03] border border-white/5 p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all hover:bg-white/[0.05]">
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-3">
-                        <p className="font-bold text-white text-lg">{c.name}</p>
-                        <span className="w-1.5 h-1.5 rounded-full bg-stone-700" />
-                        <p className="font-mono text-lg font-black text-amber-500 tracking-tight">{c.phone}</p>
-                      </div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-stone-500 mt-1">
-                        Verification Code: <span className="font-mono text-red-400 font-bold tracking-widest">{c.code}</span>
-                      </p>
+                    <div>
+                      <p className="font-bold text-white text-xl">{c.name}</p>
+                      <p className="font-mono text-lg font-black text-amber-500 tracking-tight mt-0.5">{c.phone}</p>
+                      <p className="text-xs uppercase tracking-wider text-stone-500 mt-3">Code: <span className="font-mono text-red-400 font-bold tracking-widest">{c.code}</span></p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
                       <button 
