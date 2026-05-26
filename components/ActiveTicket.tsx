@@ -141,11 +141,22 @@ export function ActiveTicket({ t, customer, serving, onBreak, onCancel, activeQu
                 {/* Estimated Time Card */}
                 <div className="bg-gradient-to-br from-indigo-500/10 to-purple-600/10 border border-indigo-500/20 rounded-2xl p-6 shadow-xl backdrop-blur-md relative overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-400 mb-1">
-                    {t.estimated_wait}
-                  </p>
+                  
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-400">
+                      {t.estimated_wait}
+                    </p>
+                    <div className="flex items-center gap-1.5">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                      </span>
+                      <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest">Live</span>
+                    </div>
+                  </div>
+
                   <div className="flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className="w-5 h-5 text-indigo-400 animate-spin-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <p className="text-3xl font-black text-white tracking-tight">
