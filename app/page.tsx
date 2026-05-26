@@ -7,6 +7,7 @@ import { ShoppingBagIcon } from "@/components/icons";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { StepIndicator } from "@/components/StepIndicator";
 import { QueueForm } from "@/components/QueueForm";
+import { SmsVerification } from "@/components/SmsVerification";
 import { ActiveTicket } from "@/components/ActiveTicket";
 import { CancelledTicket } from "@/components/CancelledTicket";
 import type { Lang } from "@/types/queue";
@@ -54,6 +55,10 @@ export default function CustomerPage() {
 
           {step === "form" && (
             <QueueForm t={t} loading={loading} onSubmit={joinQueue} />
+          )}
+
+          {step === "sms" && customer && (
+            <SmsVerification t={t} customer={customer} onCancel={cancelTicket} />
           )}
 
           {step === "active" && customer && (

@@ -22,44 +22,6 @@ export function ActiveTicket({ t, customer, serving, onBreak, onCancel }: Active
     }
   }, [isYourTurn]);
 
-  if (customer.status === "pending") {
-    return (
-      <div className="animate-fade-up flex flex-col items-center gap-6 text-center py-8">
-        <div className="relative">
-          <div className="h-32 w-32 rounded-full border-4 border-amber-500/10 border-t-amber-500 animate-spin flex items-center justify-center">
-          </div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-5xl animate-bounce">⏳</span>
-          </div>
-        </div>
-        
-        <div className="space-y-4">
-          <h2 className="text-3xl font-black text-white italic tracking-tighter uppercase">
-            {t.pending_title}
-          </h2>
-          <p className="text-stone-400 text-base leading-relaxed max-w-[300px] mx-auto">
-            {t.sms_instruction}
-          </p>
-        </div>
-
-        <div className="mt-4 p-6 bg-white/5 rounded-3xl border border-white/10 w-full animate-pulse">
-            <p className="text-xs font-bold uppercase tracking-widest text-stone-500 mb-2">{t.your_number}</p>
-            <p className="text-5xl font-black text-stone-600 font-mono">--</p>
-        </div>
-
-        <button 
-          onClick={() => { if (window.confirm(t.cancel_confirm)) onCancel(); }}
-          className="text-stone-600 hover:text-red-500 text-sm mt-8 transition-colors flex items-center gap-2"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-          {t.cancel_ticket}
-        </button>
-      </div>
-    );
-  }
-
   if (isServed) {
     return (
       <div className="animate-fade-up flex flex-col items-center gap-6 text-center py-4">

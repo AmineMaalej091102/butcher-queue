@@ -31,7 +31,7 @@ export function useQueue(): QueueState {
 
     if (data) {
       setCustomer(data as Customer);
-      if (data.status === "pending") setStep("active"); // Direct to active
+      if (data.status === "pending") setStep("sms");
       else if (data.status === "active") setStep("active");
       else if (data.status === "cancelled") setStep("cancelled");
     }
@@ -112,7 +112,7 @@ export function useQueue(): QueueState {
       localStorage.setItem(STORAGE_KEY, data.id);
       localStorage.setItem('last_join_time', now.toString()); // Update rate limit
       setCustomer(data as Customer);
-      setStep("active"); // We'll handle the "pending" UI inside ActiveTicket or a new view
+      setStep("sms");
     } else {
       console.error(error);
     }

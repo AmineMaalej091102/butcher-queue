@@ -1,6 +1,6 @@
 export type Lang = "en" | "fr" | "ar";
 
-export type Step = "form" | "active" | "cancelled";
+export type Step = "form" | "sms" | "active" | "cancelled";
 
 export interface Customer {
   id: string;
