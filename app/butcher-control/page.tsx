@@ -504,12 +504,12 @@ export default function ButcherDashboard() {
                                 </button>
                               </div>
                               <a 
-                                href={`sms:${nextInLineCustomer.phone}${/iPad|iPhone|iPod/.test(navigator.userAgent) ? '&' : '?'}body=${encodeURIComponent(t.remind_sms_body)}`}
-                                className="btn-success py-4 text-xs font-black uppercase tracking-[0.2em] bg-amber-500 text-black hover:bg-amber-400 shadow-lg shadow-amber-500/20"
+                                href={`tel:${nextInLineCustomer.phone}`}
+                                className="btn-success py-4 text-xs font-black uppercase tracking-[0.2em] bg-green-600 text-white hover:bg-green-500 shadow-lg shadow-green-500/20"
                               >
                                 <span className="flex items-center justify-center gap-2">
                                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                   </svg>
                                   {t.remind_sms}
                                 </span>
