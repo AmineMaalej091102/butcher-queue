@@ -108,6 +108,33 @@ export default function ButcherDashboard() {
     setIsSubmitting(true);
 
     try {
+      // Tunisian Phone Validation: starts with 2, 4, 5, or 9 and is 8 digits long
+      const phoneRegex = /^[2459]\d{7}$/;
+      if (manualPhone && manualPhone !== "00000000" && !phoneRegex.test(manualPhone)) {
+        alert(t.phone_error);
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Check for phone number unicity constraint
+      if (manualPhone && manualPhone !== "00000000") {
+        const { data: existing } = await supabase
+          .from('customers')
+          .select('*')
+          .eq('phone', manualPhone)
+          .in('status', ['pending', 'active'])
+          .maybeSingle();
+
+        if (existing) {
+          alert(lang === 'ar' 
+            ? `هذا الحريف موجود ديجا في الصف (رقم #${existing.ticket_number || 'في الانتظار'}).` 
+            : `Ce client est déjà dans la file (Ticket #${existing.ticket_number || 'En attente'}).`
+          );
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
       const maxTicket = Math.max(
         serving,
         ...active.map(c => c.ticket_number || 0),
