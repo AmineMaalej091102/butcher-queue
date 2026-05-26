@@ -32,39 +32,28 @@ export function SmsVerification({ t, customer, onCancel }: SmsVerificationProps)
 
   return (
     <div className="animate-fade-up flex flex-col items-center gap-6 text-center py-4">
-      <div className="h-20 w-20 rounded-full bg-amber-500/10 border-2 border-amber-500/50 flex items-center justify-center shadow-lg shadow-amber-500/10 mb-2">
-        <svg className="h-10 w-10 text-amber-500 animate-pulse" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+      <div className="h-24 w-24 rounded-full bg-blue-500/10 border-2 border-blue-500/50 flex items-center justify-center shadow-lg shadow-blue-500/10 mb-2">
+        <svg className="h-12 w-12 text-blue-500 animate-pulse" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </div>
       
-      <div className="space-y-2">
-        <h2 className="text-2xl font-black text-white italic tracking-tighter uppercase">
+      <div className="space-y-3">
+        <h2 className="text-3xl font-black text-white italic tracking-tighter uppercase">
           {t.pending_title}
         </h2>
-        <p className="text-stone-400 text-sm leading-relaxed max-w-[280px]">
+        <p className="text-stone-300 text-lg font-medium leading-relaxed max-w-[300px]">
           {t.sms_instruction}
         </p>
       </div>
 
-      <button
-        onClick={handleSendSms}
-        disabled={loading}
-        className="btn-primary w-full py-5 text-lg"
-      >
-        {loading ? (
-          <span className="flex items-center justify-center gap-2">
-            <SpinnerIcon />
-            {t.loading}
-          </span>
-        ) : (
-          t.send_sms
-        )}
-      </button>
+      <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden mt-2">
+        <div className="h-full bg-blue-500 animate-shimmer w-full" />
+      </div>
 
       <button 
         onClick={() => { if (window.confirm(t.cancel_confirm)) onCancel(); }}
-        className="text-stone-500 hover:text-stone-300 text-sm mt-4 underline decoration-stone-500/30"
+        className="text-stone-500 hover:text-stone-300 text-sm mt-6 underline decoration-stone-500/30 font-bold"
       >
         {t.cancel_ticket}
       </button>
