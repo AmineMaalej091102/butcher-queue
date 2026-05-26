@@ -376,39 +376,6 @@ export default function ButcherDashboard() {
                 </>
               )}
             </div>
-
-            {/* Polish below active queue: Queue Summary */}
-            {active.length > 0 && (() => {
-              const waitingCustomers = active.filter(c => c.ticket_number > serving);
-              const totalSheepsWaiting = waitingCustomers.reduce((sum, c) => sum + (c.sheeps || 1), 0);
-              const totalMinutes = totalSheepsWaiting * 20;
-              const h = Math.floor(totalMinutes / 60);
-              const m = totalMinutes % 60;
-
-              return (
-                <div className={`mt-auto pt-6 border-t border-white/5 grid grid-cols-2 gap-4 ${t.dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                  <div className="bg-white/[0.02] p-4 rounded-2xl border border-white/5">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-stone-500 mb-1">{t.ctrl_waiting}</p>
-                    <p className="text-2xl font-black text-blue-400">
-                      {waitingCustomers.length} <span className="text-xs text-stone-600 font-bold">{t.ctrl_people}</span>
-                    </p>
-                  </div>
-                  <div className="bg-white/[0.02] p-4 rounded-2xl border border-white/5">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-stone-500 mb-1">{t.ctrl_est_finish}</p>
-                    <div className="flex items-baseline gap-1">
-                      {h > 0 && (
-                        <p className="text-2xl font-black text-amber-500 leading-none">
-                          {h}<span className="text-[10px] text-stone-600 font-bold ml-0.5">{t.hours}</span>
-                        </p>
-                      )}
-                      <p className="text-2xl font-black text-amber-500 leading-none">
-                        {m}<span className="text-[10px] text-stone-600 font-bold ml-0.5">{t.minutes}</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })()}
           </div>
         </div>
       </div>
