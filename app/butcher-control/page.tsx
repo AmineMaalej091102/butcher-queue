@@ -17,6 +17,11 @@ export default function ButcherDashboard() {
   const [onBreak, setOnBreak] = useState(false);
   const [showQR, setShowQR] = useState(false);
   const [origin, setOrigin] = useState("");
+  const [showAddManual, setShowAddManual] = useState(false);
+  const [manualName, setManualName] = useState("");
+  const [manualPhone, setManualPhone] = useState("");
+  const [manualSheeps, setManualSheeps] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -97,6 +102,43 @@ export default function ButcherDashboard() {
     await supabase.from('customers').update({ status: 'cancelled' }).in('status', ['pending', 'active']);
   }
 
+  async function addManualCustomer(e: React.FormEvent) {
+    e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    try {
+      const maxTicket = Math.max(
+        serving,
+        ...active.map(c => c.ticket_number || 0),
+        0
+      );
+      const nextTicket = maxTicket + 1;
+      const code = Math.floor(1000 + Math.random() * 9000).toString();
+
+      const { error } = await supabase.from('customers').insert([{
+        name: manualName || "Client Sur Place",
+        phone: manualPhone || "00000000",
+        sheeps: manualSheeps,
+        code,
+        status: 'active',
+        ticket_number: nextTicket
+      }]);
+
+      if (error) throw error;
+
+      // Reset & Close
+      setManualName("");
+      setManualPhone("");
+      setManualSheeps(1);
+      setShowAddManual(false);
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   if (!isAuthenticated) {
     return (
       <div className="bg-noise relative min-h-screen flex items-center justify-center p-4">
@@ -143,6 +185,15 @@ export default function ButcherDashboard() {
               QR CODE
             </button>
             <button 
+              onClick={() => setShowAddManual(true)}
+              className="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white px-6 py-2.5 rounded-xl border border-blue-400/20 flex items-center gap-2.5 transition-all font-bold shadow-lg"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+              {t.ctrl_add_manual_btn}
+            </button>
+            <button 
               onClick={toggleBreak}
               className={`px-6 py-2.5 rounded-xl border flex items-center gap-2.5 transition-all font-bold shadow-lg backdrop-blur-sm active:scale-95 ${
                 onBreak 
@@ -184,6 +235,72 @@ export default function ButcherDashboard() {
               >
                 Close
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* Manual Add Modal */}
+        {showAddManual && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in" onClick={() => setShowAddManual(false)}>
+            <div className="glass-card rounded-[2.5rem] p-8 w-full max-w-md animate-scale-in relative z-10" onClick={e => e.stopPropagation()}>
+              <h3 className="text-2xl font-black text-white text-center mb-6 uppercase tracking-tighter">{t.ctrl_add_manual}</h3>
+              <form onSubmit={addManualCustomer} className="space-y-4">
+                <div>
+                  <label className="text-xs font-bold text-stone-500 uppercase tracking-widest ml-1 mb-2 block">{t.name}</label>
+                  <input
+                    type="text"
+                    value={manualName}
+                    onChange={(e) => setManualName(e.target.value)}
+                    placeholder="Flen Fouleni"
+                    className="input-premium"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-stone-500 uppercase tracking-widest ml-1 mb-2 block">{t.phone}</label>
+                  <input
+                    type="tel"
+                    value={manualPhone}
+                    onChange={(e) => setManualPhone(e.target.value)}
+                    placeholder="2xxxxxxx"
+                    className="input-premium"
+                    maxLength={8}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-stone-500 uppercase tracking-widest ml-1 mb-2 block">{t.sheeps}</label>
+                  <div className="flex items-center gap-4 bg-white/5 p-2 rounded-2xl border border-white/10">
+                    <button 
+                      type="button"
+                      onClick={() => setManualSheeps(m => Math.max(1, m - 1))}
+                      className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-xl font-bold hover:bg-white/10 transition-all"
+                    >-</button>
+                    <span className="flex-1 text-center text-2xl font-black text-amber-500">{manualSheeps}</span>
+                    <button 
+                      type="button"
+                      onClick={() => setManualSheeps(m => Math.min(10, m + 1))}
+                      className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center text-xl font-bold text-red-500 hover:bg-red-500/30 transition-all"
+                    >+</button>
+                  </div>
+                </div>
+                <div className="flex gap-3 pt-4">
+                  <button 
+                    type="button" 
+                    onClick={() => setShowAddManual(false)}
+                    className="flex-1 bg-white/5 hover:bg-white/10 text-stone-300 font-bold py-4 rounded-2xl transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="flex-[2] btn-primary py-4 relative overflow-hidden"
+                  >
+                    {isSubmitting ? "..." : t.ctrl_add_manual_btn}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

@@ -54,6 +54,8 @@ export const translations: Record<Lang, Translation> = {
     ctrl_people: "Peop.",
     ctrl_est_finish: "Est. Finish",
     ctrl_next_in_line: "Next in Line",
+    ctrl_add_manual: "Add Walking-in Customer",
+    ctrl_add_manual_btn: "Add Customer",
   },
   fr: {
     dir: "ltr",
@@ -108,6 +110,8 @@ export const translations: Record<Lang, Translation> = {
     ctrl_people: "Pers.",
     ctrl_est_finish: "Fin Est.",
     ctrl_next_in_line: "Prochain sur la liste",
+    ctrl_add_manual: "Ajouter Client sur place",
+    ctrl_add_manual_btn: "Ajouter Client",
   },
   ar: {
     dir: "rtl",
@@ -162,5 +166,7 @@ export const translations: Record<Lang, Translation> = {
     ctrl_people: "حريف",
     ctrl_est_finish: "وقت النهاية",
     ctrl_next_in_line: "الدور الجاي",
+    ctrl_add_manual: "زيد حريف بيدك",
+    ctrl_add_manual_btn: "زيد الحريف",
   },
 };
