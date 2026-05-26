@@ -53,6 +53,7 @@ export const translations: Record<Lang, Translation> = {
     ctrl_waiting: "Waiting",
     ctrl_people: "Peop.",
     ctrl_est_finish: "Est. Finish",
+    ctrl_next_in_line: "Next in Line",
   },
   fr: {
     dir: "ltr",
@@ -106,6 +107,7 @@ export const translations: Record<Lang, Translation> = {
     ctrl_waiting: "En attente",
     ctrl_people: "Pers.",
     ctrl_est_finish: "Fin Est.",
+    ctrl_next_in_line: "Prochain sur la liste",
   },
   ar: {
     dir: "rtl",
@@ -159,5 +161,6 @@ export const translations: Record<Lang, Translation> = {
     ctrl_waiting: "في الإنتظار",
     ctrl_people: "حريف",
     ctrl_est_finish: "وقت النهاية",
+    ctrl_next_in_line: "الدور الجاي",
   },
 };
