@@ -17,13 +17,18 @@ export function ActiveTicket({ t, customer, serving, onBreak, onCancel, activeQu
 
   // Calculate wait time based on sheeps of customers ahead
   const aheadCustomers = activeQueue.filter(c => 
-    c.status === 'active' && 
-    c.ticket_number >= serving && 
+    c.ticket_number > serving && 
     c.ticket_number < customer.ticket_number
   );
   
   const totalSheepsAhead = aheadCustomers.reduce((sum, c) => sum + (c.sheeps || 1), 0);
-  const totalMinutes = (totalSheepsAhead * 20) + (onBreak ? 30 : 0);
+  
+  // Include the customer currently at the counter in the wait time calculation
+  // (We assume the butcher still has work to do for the current customer)
+  const currentServingCustomer = activeQueue.find(c => c.ticket_number === serving);
+  const currentSheepTime = currentServingCustomer ? (currentServingCustomer.sheeps || 1) * 10 : 0; // estimate half time left for current
+  
+  const totalMinutes = (totalSheepsAhead * 20) + currentSheepTime + (onBreak ? 30 : 0);
   
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
@@ -122,10 +127,10 @@ export function ActiveTicket({ t, customer, serving, onBreak, onCancel, activeQu
       {customer.ticket_number > 0 && (
         <div className="space-y-4">
           <div className="text-center">
-            {ahead > 0 ? (
+            {aheadCustomers.length > 0 ? (
               <div className="space-y-4">
                 <p className="text-xl font-medium text-stone-400">
-                  <span className="text-blue-400 font-bold">{ahead}</span> {t.ahead_of_you}
+                  <span className="text-blue-400 font-bold">{aheadCustomers.length}</span> {t.ahead_of_you}
                 </p>
                 
                 {/* Estimated Time Card */}
