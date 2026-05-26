@@ -101,7 +101,7 @@ export function useQueue(): QueueState {
         name: name.substring(0, 50), // Limit name length
         phone, 
         code, 
-        status: "active" // Insert as active immediately
+        status: "pending" // Insert as pending for butcher approval
       }])
       .select()
       .single();
@@ -112,7 +112,7 @@ export function useQueue(): QueueState {
       localStorage.setItem(STORAGE_KEY, data.id);
       localStorage.setItem('last_join_time', now.toString()); // Update rate limit
       setCustomer(data as Customer);
-      setStep("active"); // Direct to active
+      setStep("active"); // We'll handle the "pending" UI inside ActiveTicket or a new view
     } else {
       console.error(error);
     }
