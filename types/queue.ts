@@ -65,4 +65,6 @@ export interface Translation {
   ctrl_people: string;
   ctrl_est_finish: string;
   ctrl_next_in_line: string;
+  ctrl_add_manual: string;
+  ctrl_add_manual_btn: string;
 }
