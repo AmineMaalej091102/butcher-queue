@@ -7,13 +7,24 @@ interface ActiveTicketProps {
   serving: number;
   onBreak: boolean;
   onCancel: () => void;
+  activeQueue: Customer[];
 }
 
-export function ActiveTicket({ t, customer, serving, onBreak, onCancel }: ActiveTicketProps) {
+export function ActiveTicket({ t, customer, serving, onBreak, onCancel, activeQueue }: ActiveTicketProps) {
   const isYourTurn = customer.ticket_number === serving;
   const isServed = serving > customer.ticket_number;
   const ahead = customer.ticket_number - serving;
-  const totalMinutes = (ahead * 20) + (onBreak ? 30 : 0);
+
+  // Calculate wait time based on sheeps of customers ahead
+  const aheadCustomers = activeQueue.filter(c => 
+    c.status === 'active' && 
+    c.ticket_number >= serving && 
+    c.ticket_number < customer.ticket_number
+  );
+  
+  const totalSheepsAhead = aheadCustomers.reduce((sum, c) => sum + (c.sheeps || 1), 0);
+  const totalMinutes = (totalSheepsAhead * 20) + (onBreak ? 30 : 0);
+  
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
 

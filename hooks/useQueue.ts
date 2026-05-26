@@ -11,7 +11,8 @@ interface QueueState {
   onBreak: boolean;
   step: Step;
   loading: boolean;
-  joinQueue: (name: string, phone: string) => Promise<void>;
+  activeQueue: Customer[];
+  joinQueue: (name: string, phone: string, sheeps: number) => Promise<void>;
   cancelTicket: () => Promise<void>;
 }
 
@@ -21,6 +22,7 @@ export function useQueue(): QueueState {
   const [serving, setServing] = useState(0);
   const [onBreak, setOnBreak] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [activeQueue, setActiveQueue] = useState<Customer[]>([]);
 
   const fetchCustomer = useCallback(async (id: string) => {
     const { data } = await supabase
@@ -42,15 +44,23 @@ export function useQueue(): QueueState {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (savedId) fetchCustomer(savedId);
 
-    // Fetch initial serving number
-    supabase
-      .from("queue_state")
-      .select("*")
-      .single()
-      .then(({ data }) => {
-        setServing(data?.current_serving || 0);
-        setOnBreak(data?.on_break || false);
-      });
+    // Fetch initial state
+    const fetchData = async () => {
+      const { data: q } = await supabase.from("queue_state").select("*").single();
+      if (q) {
+        setServing(q.current_serving || 0);
+        setOnBreak(q.on_break || false);
+      }
+
+      const { data: c } = await supabase
+        .from("customers")
+        .select("*")
+        .eq("status", "active")
+        .order("ticket_number");
+      if (c) setActiveQueue(c as Customer[]);
+    };
+
+    fetchData();
 
     // Subscribe to real-time updates
     const channel = supabase
@@ -65,8 +75,14 @@ export function useQueue(): QueueState {
       )
       .on(
         "postgres_changes",
+        { event: "INSERT", schema: "public", table: "customers" },
+        () => fetchData()
+      )
+      .on(
+        "postgres_changes",
         { event: "UPDATE", schema: "public", table: "customers" },
         (payload) => {
+          fetchData(); // Refresh queue whenever anyone's status/ticket_number changes
           const myId = localStorage.getItem(STORAGE_KEY);
           if (payload.new.id === myId) {
             setCustomer(payload.new as Customer);
@@ -82,7 +98,7 @@ export function useQueue(): QueueState {
     };
   }, [fetchCustomer]);
 
-  const joinQueue = useCallback(async (name: string, phone: string) => {
+  const joinQueue = useCallback(async (name: string, phone: string, sheeps: number) => {
     // Simple Rate Limiting check
     const lastJoin = localStorage.getItem('last_join_time');
     const now = Date.now();
@@ -119,6 +135,7 @@ export function useQueue(): QueueState {
       .insert([{ 
         name: name.substring(0, 50), // Limit name length
         phone, 
+        sheeps,
         code, 
         status: "pending" // Insert as pending for butcher approval
       }])
@@ -147,5 +164,5 @@ export function useQueue(): QueueState {
     setLoading(false);
   }, [customer]);
 
-  return { customer, serving, onBreak, step, loading, joinQueue, cancelTicket };
+  return { customer, serving, onBreak, step, loading, activeQueue, joinQueue, cancelTicket };
 }

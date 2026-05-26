@@ -6,6 +6,7 @@ export interface Customer {
   id: string;
   name: string;
   phone: string;
+  sheeps: number;
   code: string;
   status: "pending" | "active" | "served" | "cancelled";
   ticket_number: number;
@@ -18,6 +19,7 @@ export interface Translation {
   subtitle: string;
   name: string;
   phone: string;
+  sheeps: string;
   join: string;
   pending_title: string;
   sms_instruction: string;

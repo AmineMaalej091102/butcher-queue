@@ -7,6 +7,7 @@ export const translations: Record<Lang, Translation> = {
     subtitle: "Queue Management System",
     name: "Full Name",
     phone: "Phone Number",
+    sheeps: "Number of Sheeps",
     join: "Join Queue",
     pending_title: "Activate Your Ticket",
     sms_instruction:
@@ -56,6 +57,7 @@ export const translations: Record<Lang, Translation> = {
     subtitle: "Système de gestion de file",
     name: "Nom Complet",
     phone: "Numéro de Téléphone",
+    sheeps: "Nombre de Moutons",
     join: "Rejoindre la file",
     pending_title: "Activez votre ticket",
     sms_instruction:
@@ -105,6 +107,7 @@ export const translations: Record<Lang, Translation> = {
     subtitle: "شد الصف بالتلفون",
     name: "الاسم و اللقب",
     phone: "رقم التلفون",
+    sheeps: "قداش من علوش",
     join: "شد الصف",
     pending_title: "فعل تذكرتك",
     sms_instruction:

@@ -247,7 +247,13 @@ export default function ButcherDashboard() {
                   <div key={c.id} className="bg-white/[0.03] border border-white/5 p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all hover:bg-white/[0.05]">
                     <div>
                       <p className="font-bold text-white text-xl">{c.name}</p>
-                      <p className="font-mono text-lg font-black text-amber-500 tracking-tight mt-0.5">{c.phone}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <p className="font-mono text-lg font-black text-amber-500 tracking-tight">{c.phone}</p>
+                        <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-md font-bold">
+                          🥩 {c.sheeps || 1}
+                        </span>
+                      </div>
+                    </div>
                       <p className="text-xs uppercase tracking-wider text-stone-500 mt-3">Code: <span className="font-mono text-red-400 font-bold tracking-widest">{c.code}</span></p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
@@ -297,7 +303,10 @@ export default function ButcherDashboard() {
                               <span className="font-mono text-4xl font-black text-amber-500">#{c.ticket_number}</span>
                               <div className="flex flex-col">
                                 <span className="font-bold text-xl text-white">{c.name}</span>
-                                <span className="font-mono text-lg font-black text-stone-400 tracking-tight">{c.phone}</span>
+                                <div className="flex items-center gap-2">
+                                  <span className="font-mono text-lg font-black text-stone-400 tracking-tight">{c.phone}</span>
+                                  <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-md font-bold">🥩 {c.sheeps || 1}</span>
+                                </div>
                               </div>
                             </div>
                             <button 
@@ -339,7 +348,10 @@ export default function ButcherDashboard() {
                           </span>
                           <div className="flex flex-col">
                             <span className={`font-bold text-xl ${isServing ? 'text-white' : 'text-stone-300'}`}>{c.name}</span>
-                            <span className="font-mono text-lg font-black text-amber-500 tracking-tight mt-0.5">{c.phone}</span>
+                            <div className="flex items-center gap-2 mt-0.5">
+                              <span className="font-mono text-lg font-black text-amber-500 tracking-tight">{c.phone}</span>
+                              <span className="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-md font-bold">🥩 {c.sheeps || 1}</span>
+                            </div>
                           </div>
                         </div>
                         <div className="flex flex-col items-end gap-2.5">
