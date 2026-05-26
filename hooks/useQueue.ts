@@ -151,6 +151,7 @@ export function useQueue(): QueueState {
       setStep("sms");
     } else {
       console.error(error);
+      alert(error?.message || "An error occurred while joining the queue. Please check if the 'sheeps' column exists in your Supabase table.");
     }
   }, []);
 
