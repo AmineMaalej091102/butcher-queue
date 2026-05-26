@@ -93,6 +93,25 @@ export function useQueue(): QueueState {
     }
 
     setLoading(true);
+
+    // Check if customer already has an active/pending ticket
+    const { data: existingCustomer } = await supabase
+      .from("customers")
+      .select("*")
+      .eq("phone", phone)
+      .in("status", ["pending", "active"])
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (existingCustomer) {
+      localStorage.setItem(STORAGE_KEY, existingCustomer.id);
+      setCustomer(existingCustomer as Customer);
+      setStep(existingCustomer.status === "pending" ? "sms" : "active");
+      setLoading(false);
+      return;
+    }
+
     const code = Math.floor(1000 + Math.random() * 9000).toString();
 
     const { data, error } = await supabase
