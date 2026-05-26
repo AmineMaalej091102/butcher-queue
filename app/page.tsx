@@ -46,7 +46,9 @@ export default function CustomerPage() {
             <h1 className="text-2xl font-extrabold tracking-tight text-white">
               {t.title}
             </h1>
-            <p className="mt-1 text-sm text-stone-500">{t.subtitle}</p>
+            <p className="mt-2 text-base font-bold bg-gradient-to-r from-red-400 to-amber-500 bg-clip-text text-transparent italic">
+              {t.subtitle}
+            </p>
           </div>
 
           {/* Eid Mubarak Banner */}

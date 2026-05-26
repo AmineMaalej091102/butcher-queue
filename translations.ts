@@ -4,7 +4,7 @@ export const translations: Record<Lang, Translation> = {
   en: {
     dir: "ltr",
     title: "Butcher Queue",
-    subtitle: "Queue Management System",
+    subtitle: "The First Digital Service for Eid al-Adha",
     name: "Full Name",
     phone: "Phone Number",
     sheeps: "Number of Sheeps",
@@ -54,7 +54,7 @@ export const translations: Record<Lang, Translation> = {
   fr: {
     dir: "ltr",
     title: "File d'attente Boucherie",
-    subtitle: "Système de gestion de file",
+    subtitle: "Le premier site de services pour l'Aïd El-Adha",
     name: "Nom Complet",
     phone: "Numéro de Téléphone",
     sheeps: "Nombre de Moutons",
@@ -104,7 +104,7 @@ export const translations: Record<Lang, Translation> = {
   ar: {
     dir: "rtl",
     title: "موقع محمد مروان",
-    subtitle: "شد الصف بالتلفون",
+    subtitle: "أول موقع إلكتروني لخدمات عيد الإضحى",
     name: "الاسم و اللقب",
     phone: "رقم التلفون",
     sheeps: "قداش من علوش",
