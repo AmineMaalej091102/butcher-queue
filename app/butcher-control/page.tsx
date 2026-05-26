@@ -63,8 +63,17 @@ export default function ButcherDashboard() {
   }
 
   async function approve(customer: Customer) {
-    const nextTicket = active.length > 0 ? Math.max(...active.map(c => c.ticket_number)) + 1 : serving + 1;
-    await supabase.from('customers').update({ status: 'active', ticket_number: nextTicket }).eq('id', customer.id);
+    // Get the maximum ticket number from BOTH active queue AND currently serving
+    const maxTicket = Math.max(
+      serving,
+      ...active.map(c => c.ticket_number || 0),
+      0
+    );
+    const nextTicket = maxTicket + 1;
+    
+    await supabase.from('customers')
+      .update({ status: 'active', ticket_number: nextTicket })
+      .eq('id', customer.id);
   }
 
   async function nextCustomer() {
@@ -325,7 +334,9 @@ export default function ButcherDashboard() {
                     return (
                       <div key={c.id} className={`p-5 rounded-2xl border flex items-center justify-between transition-all ${isServing ? 'bg-red-500/10 border-red-500/30' : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.04]'}`}>
                         <div className="flex items-center gap-6">
-                          <span className={`font-mono text-2xl font-black ${isServing ? 'text-red-400' : 'text-blue-400'}`}>#{c.ticket_number}</span>
+                          <span className={`font-mono text-2xl font-black ${isServing ? 'text-red-400' : 'text-blue-400'}`}>
+                            {c.ticket_number ? `#${c.ticket_number}` : '#?'}
+                          </span>
                           <div className="flex flex-col">
                             <span className={`font-bold text-xl ${isServing ? 'text-white' : 'text-stone-300'}`}>{c.name}</span>
                             <span className="font-mono text-lg font-black text-amber-500 tracking-tight mt-0.5">{c.phone}</span>
