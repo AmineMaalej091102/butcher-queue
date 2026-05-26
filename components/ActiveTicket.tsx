@@ -154,7 +154,11 @@ export function ActiveTicket({ t, customer, serving, onBreak, onCancel, activeQu
                           {hours} <span className="text-lg font-bold text-indigo-300/70 mr-1">{t.hours}</span>
                         </>
                       )}
-                      {minutes} <span className="text-lg font-bold text-indigo-300/70">{t.minutes}</span>
+                      {minutes > 0 && (
+                        <>
+                          {minutes} <span className="text-lg font-bold text-indigo-300/70">{t.minutes}</span>
+                        </>
+                      )}
                     </p>
                   </div>
                 </div>
