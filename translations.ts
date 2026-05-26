@@ -50,6 +50,9 @@ export const translations: Record<Lang, Translation> = {
     cancelled_msg: "We are sorry, but your ticket has been removed by the butcher. Please contact our staff if you have any questions.",
     remind_sms: "Remind Customer",
     remind_sms_body: "عسلامة! دورك قرب، جيب علوشك و ايجا للكنتوار. \n\nReminder: You are next! Please come to the counter. \n\nRappel : C'est presque votre tour ! Veuillez vous présenter au comptoir.",
+    ctrl_waiting: "Waiting",
+    ctrl_people: "Peop.",
+    ctrl_est_finish: "Est. Finish",
   },
   fr: {
     dir: "ltr",
@@ -100,6 +103,9 @@ export const translations: Record<Lang, Translation> = {
     cancelled_msg: "Nous sommes désolés, mais votre ticket a été retiré par le boucher. Veuillez contacter notre personnel si vous avez des questions.",
     remind_sms: "Rappeler le client",
     remind_sms_body: "عسلامة! دورك قرب، جيب علوشك و ايجا للكنتوار. \n\nReminder: You are next! Please come to the counter. \n\nRappel : C'est presque votre tour ! Veuillez vous présenter au comptoir.",
+    ctrl_waiting: "En attente",
+    ctrl_people: "Pers.",
+    ctrl_est_finish: "Fin Est.",
   },
   ar: {
     dir: "rtl",
@@ -150,5 +156,8 @@ export const translations: Record<Lang, Translation> = {
     cancelled_msg: "سامحنا، محمد مروان فسخ تذكرتك. أسأل الموظفين كان تحب تزيد تستفسر.",
     remind_sms: "ذكر الحريف",
     remind_sms_body: "عسلامة! دورك قرب، جيب علوشك و ايجا للكنتوار. \n\nReminder: You are next! Please come to the counter. \n\nRappel : C'est presque votre tour ! Veuillez vous présenter au comptoir.",
+    ctrl_waiting: "في الإنتظار",
+    ctrl_people: "حريف",
+    ctrl_est_finish: "وقت النهاية",
   },
 };
