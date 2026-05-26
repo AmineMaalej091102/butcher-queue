@@ -13,7 +13,9 @@ export function ActiveTicket({ t, customer, serving, onBreak, onCancel }: Active
   const isYourTurn = customer.ticket_number === serving;
   const isServed = serving > customer.ticket_number;
   const ahead = customer.ticket_number - serving;
-  const estimatedTime = (ahead * 20) + (onBreak ? 30 : 0);
+  const totalMinutes = (ahead * 20) + (onBreak ? 30 : 0);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
 
   useEffect(() => {
     if (isYourTurn && "vibrate" in navigator) {
@@ -136,7 +138,12 @@ export function ActiveTicket({ t, customer, serving, onBreak, onCancel }: Active
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <p className="text-3xl font-black text-white tracking-tight">
-                      {estimatedTime} <span className="text-lg font-bold text-indigo-300/70">{t.minutes}</span>
+                      {hours > 0 && (
+                        <>
+                          {hours} <span className="text-lg font-bold text-indigo-300/70 mr-1">{t.hours}</span>
+                        </>
+                      )}
+                      {minutes} <span className="text-lg font-bold text-indigo-300/70">{t.minutes}</span>
                     </p>
                   </div>
                 </div>

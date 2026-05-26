@@ -51,6 +51,7 @@ export interface Translation {
   eid_mubarak: string;
   estimated_wait: string;
   minutes: string;
+  hours: string;
   phone_error: string;
   lunch_break: string;
   on_break: string;
