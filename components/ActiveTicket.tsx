@@ -97,16 +97,6 @@ export function ActiveTicket({ t, customer, serving, onBreak, onCancel, activeQu
 
   return (
     <div className="animate-fade-up space-y-6">
-      {/* Currently Serving */}
-      <div className="serving-badge text-center">
-        <p className="mb-2 text-xs font-bold uppercase tracking-widest text-red-400/60">
-          {t.serving}
-        </p>
-        <p className="animate-count-pulse font-mono text-7xl font-black text-red-500">
-          #{serving}
-        </p>
-      </div>
-
       {/* Your Number */}
       <div className="your-number-badge relative text-center">
         <div className="sparkle-container">
