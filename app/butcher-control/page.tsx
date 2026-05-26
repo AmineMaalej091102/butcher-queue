@@ -254,6 +254,7 @@ export default function ButcherDashboard() {
                         </span>
                       </div>
                     </div>
+                    <div>
                       <p className="text-xs uppercase tracking-wider text-stone-500 mt-3">Code: <span className="font-mono text-red-400 font-bold tracking-widest">{c.code}</span></p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
