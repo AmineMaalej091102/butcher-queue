@@ -47,6 +47,17 @@ export function SmsVerification({ t, customer, onCancel }: SmsVerificationProps)
         </p>
       </div>
 
+      <div className="bg-white/5 border border-white/10 rounded-2xl p-4 w-full space-y-2">
+        <p className="text-xs font-bold text-stone-500 uppercase tracking-widest">{t.we_will_call}</p>
+        <p className="text-2xl font-black text-amber-500 font-mono tracking-tighter">{customer.phone}</p>
+        <button 
+          onClick={onCancel}
+          className="text-xs text-blue-400 hover:text-blue-300 font-bold uppercase tracking-widest underline decoration-blue-400/30"
+        >
+          {t.fix_number}
+        </button>
+      </div>
+
       <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden mt-2">
         <div className="h-full bg-blue-500 animate-shimmer w-full" />
       </div>

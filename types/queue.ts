@@ -61,6 +61,8 @@ export interface Translation {
   cancelled_msg: string;
   remind_sms: string;
   remind_sms_body: string;
+  fix_number: string;
+  we_will_call: string;
   ctrl_waiting: string;
   ctrl_people: string;
   ctrl_est_finish: string;

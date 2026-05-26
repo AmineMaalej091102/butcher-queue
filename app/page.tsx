@@ -65,7 +65,13 @@ export default function CustomerPage() {
           <StepIndicator currentStep={step} />
 
           {step === "form" && (
-            <QueueForm t={t} loading={loading} onSubmit={joinQueue} />
+            <QueueForm 
+              t={t} 
+              loading={loading} 
+              onSubmit={joinQueue} 
+              initialName={customer?.name} 
+              initialPhone={customer?.phone}
+            />
           )}
 
           {step === "sms" && customer && (

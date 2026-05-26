@@ -8,34 +8,34 @@ interface QueueFormProps {
   t: Translation;
   loading: boolean;
   onSubmit: (name: string, phone: string, sheeps: number) => void;
+  initialName?: string;
+  initialPhone?: string;
 }
 
-export function QueueForm({ t, loading, onSubmit }: QueueFormProps) {
-  const nameRef = useRef<HTMLInputElement>(null);
-  const phoneRef = useRef<HTMLInputElement>(null);
+export function QueueForm({ t, loading, onSubmit, initialName = "", initialPhone = "" }: QueueFormProps) {
+  const [name, setName] = useState(initialName);
+  const [phone, setPhone] = useState(initialPhone);
   const [sheeps, setSheeps] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
   function handleClick() {
     setError(null);
-    const name = nameRef.current?.value?.trim();
-    const phone = phoneRef.current?.value?.trim();
+    const trimmedName = name.trim();
+    const trimmedPhone = phone.trim();
 
-    if (!name || !phone) return;
+    if (!trimmedName || !trimmedPhone) return;
 
     // Name length and character validation
-    if (name.length < 3) {
+    if (trimmedName.length < 3) {
       setError(t.dir === "rtl" ? "الإسم لازم يكون فيه 3 حروف على الأقل" : "Le nom doit comporter au moins 3 caractères");
-      nameRef.current?.focus();
       return;
     }
 
     // Tunisian Phone Validation: starts with 2, 4, 5, or 9 and is 8 digits long
     const phoneRegex = /^[2459]\d{7}$/;
     
-    if (!phoneRegex.test(phone)) {
+    if (!phoneRegex.test(trimmedPhone)) {
       setError(t.phone_error);
-      phoneRef.current?.focus();
       return;
     }
 
@@ -44,7 +44,7 @@ export function QueueForm({ t, loading, onSubmit }: QueueFormProps) {
       return;
     }
 
-    onSubmit(name, phone, sheeps);
+    onSubmit(trimmedName, trimmedPhone, sheeps);
   }
 
   const increment = () => sheeps < 10 && setSheeps(s => s + 1);
@@ -57,7 +57,8 @@ export function QueueForm({ t, loading, onSubmit }: QueueFormProps) {
           {t.name}
         </label>
         <input
-          ref={nameRef}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           id="customer-name"
           type="text"
           placeholder={t.name}
@@ -72,7 +73,11 @@ export function QueueForm({ t, loading, onSubmit }: QueueFormProps) {
             {t.phone}
           </label>
           <input
-            ref={phoneRef}
+            value={phone}
+            onChange={(e) => {
+              setPhone(e.target.value);
+              if (error) setError(null);
+            }}
             id="customer-phone"
             type="tel"
             placeholder={t.phone}
@@ -81,7 +86,6 @@ export function QueueForm({ t, loading, onSubmit }: QueueFormProps) {
             dir="ltr"
             maxLength={8}
             inputMode="numeric"
-            onChange={() => error && setError(null)}
             required
           />
         </div>
